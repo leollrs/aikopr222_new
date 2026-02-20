@@ -34,7 +34,11 @@ const googleOAuthClientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET || ''
 const googleOAuthRedirectUri =
   process.env.GOOGLE_OAUTH_REDIRECT_URI || `http://localhost:${port}/api/google-calendar/oauth/callback`
 const googleOAuthAppUrl = (process.env.GOOGLE_OAUTH_APP_URL || 'http://localhost:5173').replace(/\/+$/, '')
-const oauthTokenStorePath = path.resolve(process.cwd(), 'server', '.google-calendar-oauth.json')
+const oauthTokenStorePath =
+  process.env.GOOGLE_OAUTH_TOKEN_STORE_PATH ||
+  (process.env.VERCEL
+    ? path.join('/tmp', 'google-calendar-oauth.json')
+    : path.resolve(process.cwd(), 'server', '.google-calendar-oauth.json'))
 const oauthStateStore = new Map()
 
 const GOOGLE_CALENDAR_SCOPES = [
@@ -1165,6 +1169,10 @@ app.get('/api/availability', async (req, res) => {
   }
 })
 
-app.listen(port, () => {
-  console.log(`Chat API server running on http://localhost:${port}`)
-})
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`Chat API server running on http://localhost:${port}`)
+  })
+}
+
+export default app
