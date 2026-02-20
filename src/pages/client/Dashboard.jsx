@@ -32,9 +32,9 @@ export default function ClientDashboard() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="container py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-serif text-ink-dark mb-2">Mi Cuenta</h1>
+      <div className="container py-8 sm:py-12">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Mi Cuenta</h1>
           <p className="text-ink-light">Bienvenido a tu panel de cliente</p>
         </div>
 
@@ -89,7 +89,7 @@ export default function ClientDashboard() {
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-lg p-6 shadow-md">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
               <h2 className="font-serif text-xl text-ink-dark">Próximas Citas</h2>
               <Link
                 to="/client/appointments"
@@ -117,7 +117,7 @@ export default function ClientDashboard() {
                     key={appointment.id}
                     className="p-4 border border-border rounded-md hover:shadow-md transition-shadow"
                   >
-                    <div className="flex items-start justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                       <div className="flex-1">
                         <h3 className="font-semibold text-ink-dark mb-1">
                           {appointment.services?.name || 'Servicio'}

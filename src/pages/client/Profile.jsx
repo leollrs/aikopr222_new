@@ -82,13 +82,13 @@ export default function ClientProfile() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="container py-12">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container py-8 sm:py-12">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-serif text-ink-dark mb-2">Mi Perfil</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Mi Perfil</h1>
             <p className="text-ink-light">Administra tu información personal</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <Link
               to="/client/dashboard"
               className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
@@ -151,7 +151,7 @@ export default function ClientProfile() {
               </div>
             </div>
 
-            <div className="flex gap-4 mt-6 pt-6 border-t border-border">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 pt-6 border-t border-border">
               <button
                 type="submit"
                 disabled={saveMutation.isPending}

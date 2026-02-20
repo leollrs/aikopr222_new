@@ -29,11 +29,13 @@ export default function Testimonials() {
   }, [])
 
   return (
-    <section id="testimonials" className="py-24 bg-bg">
+    <section id="testimonials" className="py-16 sm:py-24 bg-bg">
       <div className="container">
-        <header className="text-center mb-12">
+        <header className="text-center mb-10 sm:mb-12">
           <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Reseñas</span>
-          <h2 className="font-serif text-4xl md:text-5xl text-ink-dark">Lo Que Dicen Nuestros Clientes</h2>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark">
+            Lo Que Dicen Nuestros Clientes
+          </h2>
         </header>
 
         <div ref={revealRef} className="reveal relative max-w-4xl mx-auto">
@@ -42,7 +44,7 @@ export default function Testimonials() {
               <div className="text-2xl text-gold mb-4" aria-label="5 de 5 estrellas">
                 ★★★★★
               </div>
-              <blockquote className="text-xl text-ink mb-8 leading-relaxed max-w-2xl mx-auto">
+              <blockquote className="text-lg sm:text-xl text-ink mb-8 leading-relaxed max-w-2xl mx-auto">
                 &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
               <footer className="flex items-center justify-center gap-4">

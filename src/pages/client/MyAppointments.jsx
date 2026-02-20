@@ -65,22 +65,22 @@ export default function ClientAppointments() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="container py-12">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container py-8 sm:py-12">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-serif text-ink-dark mb-2">Mis Citas</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Mis Citas</h1>
             <p className="text-ink-light">Historial y gestión de tus citas</p>
           </div>
           <Link
             to="/client/dashboard"
-            className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
+            className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center w-full sm:w-auto"
           >
             Volver
           </Link>
         </div>
 
         {/* Filter */}
-        <div className="bg-white rounded-lg p-6 shadow-md mb-6">
+        <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md mb-6">
           <label className="block text-sm font-medium text-ink mb-2">Filtrar por estado</label>
           <select
             value={filterStatus}
@@ -121,7 +121,7 @@ export default function ClientAppointments() {
                   key={appointment.id}
                   className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
                 >
-                  <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex flex-col md:flex-row gap-5 sm:gap-6">
                     {appointment.services?.image_url && (
                       <img
                         src={appointment.services.image_url}
@@ -130,7 +130,7 @@ export default function ClientAppointments() {
                       />
                     )}
                     <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                         <div>
                           <h3 className="font-serif text-xl text-ink-dark mb-1">
                             {appointment.services?.name || 'Servicio'}

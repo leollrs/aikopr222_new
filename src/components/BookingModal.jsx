@@ -5,6 +5,22 @@ import { useAuth } from '../context/AuthContext'
 import { toast } from 'sonner'
 import { formatUsd, getDiscountedPrice, toNumber } from '../lib/pricing'
 
+const formatTimeForWebhook = (timeValue) => {
+  if (!timeValue || typeof timeValue !== 'string') return ''
+  const [hoursRaw, minutesRaw = '00'] = timeValue.split(':')
+  const hours = Number.parseInt(hoursRaw, 10)
+  const minutes = Number.parseInt(minutesRaw, 10)
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) return timeValue
+  const period = hours >= 12 ? 'PM' : 'AM'
+  const hour12 = hours % 12 || 12
+  return `${hour12}:${String(minutes).padStart(2, '0')} ${period}`
+}
+
+const createRequestId = () => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID()
+  return `req_${Date.now()}_${Math.random().toString(16).slice(2, 10)}`
+}
+
 export default function BookingModal({ onClose, serviceId, promotion }) {
   const { user } = useAuth()
   const [step, setStep] = useState(1)
@@ -20,6 +36,10 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
     name: '',
     email: '',
     phone: '',
+    contactMethod: 'whatsapp',
+    address: '',
+    mainGoal: '',
+    additionalNotes: '',
   })
 
   const { data: services = [] } = useQuery({
@@ -94,6 +114,16 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
         basePrice !== null && discountedPrice !== null && discountedPrice < basePrice
 
       let notes = `Cliente: ${formData.name}, Email: ${formData.email}, Tel: ${formData.phone}`
+      notes += ` | Método de contacto: ${formData.contactMethod}`
+      if (formData.mainGoal.trim()) {
+        notes += ` | Objetivo: ${formData.mainGoal.trim()}`
+      }
+      if (formData.location === 'domicilio' && formData.address.trim()) {
+        notes += ` | Dirección: ${formData.address.trim()}`
+      }
+      if (formData.additionalNotes.trim()) {
+        notes += ` | Notas: ${formData.additionalNotes.trim()}`
+      }
       if (promoApplies && hasDiscountedPrice) {
         notes += ` | Promoción: ${selectedPromotion.title} | Precio original: ${formatUsd(basePrice)} | Precio promocional: ${formatUsd(discountedPrice)}`
       }
@@ -147,35 +177,31 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
       }
 
       const intakePayload = {
-        source: 'web-booking-form',
-        appointment_id: insertedAppointment?.id || null,
-        client_id: clientId || null,
-        submitted_at: new Date().toISOString(),
-        customer: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
+        event: 'intake_submitted',
+        lang: 'es',
+        formData: {
+          fullName: formData.name.trim(),
+          phone: formData.phone.trim(),
+          email: formData.email.trim(),
+          serviceName: selectedService?.name || '',
+          appointmentDate: formData.date,
+          appointmentTime: formatTimeForWebhook(formData.time),
+          serviceType: formData.location === 'local' ? 'clinic' : 'home',
+          address: formData.location === 'domicilio' ? formData.address.trim() : '',
+          contactMethod: formData.contactMethod,
+          mainGoal: formData.mainGoal.trim(),
+          additionalNotes: formData.additionalNotes.trim(),
         },
-        service: {
-          id: formData.service,
-          name: selectedService?.name || null,
-          location: formData.location,
-          requested_date: formData.date,
-          requested_time: formData.time,
-          appointment_date: insertedAppointment?.appointment_date || null,
-        },
-        pricing: {
-          base_price: basePrice,
-          discounted_price: hasDiscountedPrice ? discountedPrice : null,
-          promotion_applied: Boolean(promoApplies && hasDiscountedPrice),
-          promotion: promoApplies
-            ? {
-                id: selectedPromotion?.id || null,
-                title: selectedPromotion?.title || null,
-                discount_percent: selectedPromotion?.discount_percent || null,
-                discount_amount: selectedPromotion?.discount_amount || null,
-              }
-            : null,
+        meta: {
+          source: 'base44',
+          ts: new Date().toISOString(),
+          requestId: createRequestId(),
+          appointmentId: insertedAppointment?.id || null,
+          clientId: clientId || null,
+          promotionApplied: Boolean(promoApplies && hasDiscountedPrice),
+          promotionTitle: promoApplies ? selectedPromotion?.title || null : null,
+          basePrice,
+          discountedPrice: hasDiscountedPrice ? discountedPrice : null,
         },
       }
 
@@ -217,15 +243,15 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
 
   return (
     <div
-      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-lg max-w-2xl w-full max-h-[94vh] sm:max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-white border-b border-border p-6 flex items-center justify-between">
-          <h2 className="font-serif text-2xl text-ink-dark">Agenda Tu Experiencia</h2>
+        <div className="sticky top-0 bg-white border-b border-border px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
+          <h2 className="font-serif text-xl sm:text-2xl text-ink-dark">Agenda Tu Experiencia</h2>
           <button
             onClick={onClose}
             className="text-ink-light hover:text-ink text-2xl leading-none"
@@ -235,13 +261,13 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Progress */}
-          <div className="flex items-center justify-center gap-2 mb-8">
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8">
             {[1, 2, 3].map((s) => (
-              <div key={s} className="flex items-center gap-2">
+              <div key={s} className="flex items-center gap-1.5 sm:gap-2">
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold ${
                     step >= s ? 'bg-gold text-white' : 'bg-bg-alt text-ink-light'
                   }`}
                 >
@@ -249,7 +275,7 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                 </div>
                 {s < 3 && (
                   <div
-                    className={`w-12 h-0.5 ${step > s ? 'bg-gold' : 'bg-bg-alt'}`}
+                    className={`w-8 sm:w-12 h-0.5 ${step > s ? 'bg-gold' : 'bg-bg-alt'}`}
                   />
                 )}
               </div>
@@ -264,7 +290,7 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                   <polyline points="22 4 12 14.01 9 11.01" />
                 </svg>
               </div>
-              <h3 className="font-serif text-2xl text-ink-dark mb-2">Solicitud Recibida</h3>
+              <h3 className="font-serif text-xl sm:text-2xl text-ink-dark mb-2">Solicitud Recibida</h3>
               <p className="text-ink-light mb-6">
                 Confirmaremos tu cita por mensaje tan pronto recibamos tu solicitud.
               </p>
@@ -355,7 +381,7 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                     <label className="block text-sm font-medium text-ink mb-2">
                       Ubicación del servicio
                     </label>
-                    <div className="flex gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <label className="flex-1">
                         <input
                           type="radio"
@@ -450,7 +476,7 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                       </select>
                     </div>
                   </div>
-                  <div className="flex gap-4 mt-6">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
                     <button
                       type="button"
                       onClick={() => setStep(1)}
@@ -517,8 +543,69 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                         className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
                       />
                     </div>
+                    <div>
+                      <label htmlFor="contactMethod" className="block text-sm font-medium text-ink mb-2">
+                        Método de contacto preferido
+                      </label>
+                      <select
+                        id="contactMethod"
+                        name="contactMethod"
+                        value={formData.contactMethod}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                      >
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="call">Llamada</option>
+                        <option value="email">Email</option>
+                      </select>
+                    </div>
+                    {formData.location === 'domicilio' && (
+                      <div>
+                        <label htmlFor="address" className="block text-sm font-medium text-ink mb-2">
+                          Dirección para servicio a domicilio
+                        </label>
+                        <input
+                          id="address"
+                          type="text"
+                          name="address"
+                          value={formData.address}
+                          onChange={handleChange}
+                          required={formData.location === 'domicilio'}
+                          className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                        />
+                      </div>
+                    )}
+                    <div>
+                      <label htmlFor="mainGoal" className="block text-sm font-medium text-ink mb-2">
+                        ¿Cuál es tu objetivo principal?
+                      </label>
+                      <textarea
+                        id="mainGoal"
+                        name="mainGoal"
+                        value={formData.mainGoal}
+                        onChange={handleChange}
+                        required
+                        rows={3}
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                        placeholder="Ej: mejorar textura, reducir manchas, etc."
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="additionalNotes" className="block text-sm font-medium text-ink mb-2">
+                        Notas adicionales (opcional)
+                      </label>
+                      <textarea
+                        id="additionalNotes"
+                        name="additionalNotes"
+                        value={formData.additionalNotes}
+                        onChange={handleChange}
+                        rows={3}
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                        placeholder="Comparte cualquier detalle importante para tu cita."
+                      />
+                    </div>
                   </div>
-                  <div className="flex gap-4 mt-6">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
                     <button
                       type="button"
                       onClick={() => setStep(2)}

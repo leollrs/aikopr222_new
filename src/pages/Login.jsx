@@ -102,8 +102,8 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-serif text-ink-dark mb-6 text-center">
+      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6 sm:p-8">
+        <h1 className="text-2xl sm:text-3xl font-serif text-ink-dark mb-6 text-center">
           {isSignUp ? 'Crear Cuenta' : 'Iniciar Sesión'}
         </h1>
         {showResetPassword ? (

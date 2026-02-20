@@ -25,12 +25,14 @@ export default function Contact() {
   }, [])
 
   return (
-    <section id="contact" className="py-24 bg-bg-alt">
+    <section id="contact" className="py-16 sm:py-24 bg-bg-alt">
       <div className="container">
-        <div ref={revealRef} className="reveal grid md:grid-cols-2 gap-12">
+        <div ref={revealRef} className="reveal grid md:grid-cols-2 gap-8 sm:gap-12">
           <div>
             <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Contáctanos</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink-dark mb-6">Agenda Tu Cita</h2>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-5 sm:mb-6">
+              Agenda Tu Cita
+            </h2>
             <address className="text-ink-light mb-6 not-italic">
               <p>Servicio a domicilio<br />Puerto Rico</p>
             </address>
@@ -42,13 +44,13 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="tel:+17866729528"
-                className="px-6 py-3 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
+                className="px-4 sm:px-6 py-3 border border-border-md rounded-md text-xs sm:text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
               >
                 Llamar +1 (786) 672-9528
               </a>
               <a
                 href="mailto:Aikopr222@gmail.com"
-                className="px-6 py-3 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
+                className="px-4 sm:px-6 py-3 border border-border-md rounded-md text-xs sm:text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
               >
                 Enviar Email
               </a>

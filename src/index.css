@@ -28,6 +28,7 @@
     @apply font-sans text-base leading-relaxed text-ink bg-bg;
     color: var(--text);
     background-color: var(--bg);
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -65,7 +66,7 @@
 
 @layer components {
   .container {
-    @apply max-w-container mx-auto px-6;
+    @apply max-w-container mx-auto px-4 sm:px-6;
   }
 
   .btnPrimary {

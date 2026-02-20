@@ -1,25 +1,26 @@
 export default function Footer() {
   return (
-    <footer className="bg-ink-dark text-white py-12">
+    <footer className="bg-ink-dark text-white py-10 sm:py-12">
       <div className="container">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-center md:text-left">
           <p className="font-serif text-xl">AIKOPR222</p>
           <p className="text-white/60 text-sm">&copy; 2026 AIKOPR222. Todos los derechos reservados.</p>
           <div className="flex gap-4">
-            <a href="#" aria-label="Instagram" className="hover:text-gold transition-colors">
+            <a
+              href="https://www.instagram.com/aikopr222/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="hover:text-gold transition-colors"
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <rect x="2" y="2" width="20" height="20" rx="5" />
                 <circle cx="12" cy="12" r="5" />
                 <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
               </svg>
             </a>
-            <a href="#" aria-label="Facebook" className="hover:text-gold transition-colors">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" />
-              </svg>
-            </a>
             <a
-              href="https://wa.me/17866729528"
+              href="https://api.whatsapp.com/send/?phone=17866729528&text&type=phone_number&app_absent=0"
               target="_blank"
               rel="noreferrer"
               aria-label="WhatsApp"

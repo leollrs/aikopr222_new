@@ -70,33 +70,35 @@ export default function Services({ onOpenModal }) {
   }
 
   return (
-    <section id="services" className="py-24 bg-bg">
+    <section id="services" className="py-16 sm:py-24 bg-bg">
       <div className="container">
-        <header className="text-center mb-16">
+        <header className="text-center mb-12 sm:mb-16">
           <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Nuestros Servicios</span>
-          <h2 className="font-serif text-4xl md:text-5xl text-ink-dark mb-4">Catálogo de Tratamientos</h2>
-          <p className="text-ink-light max-w-2xl mx-auto">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-4">
+            Catálogo de Tratamientos
+          </h2>
+          <p className="text-ink-light max-w-2xl mx-auto text-sm sm:text-base">
             Protocolos avanzados con tecnología de vanguardia para resultados visibles.
           </p>
         </header>
 
         {Object.entries(servicesByCategory).map(([category, categoryServices], catIdx) => (
-          <div key={category} className="mb-16">
-            <h3 className="font-serif text-2xl text-ink-dark mb-2">{categoryLabels[category]}</h3>
+          <div key={category} className="mb-12 sm:mb-16">
+            <h3 className="font-serif text-xl sm:text-2xl text-ink-dark mb-2">{categoryLabels[category]}</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
               {categoryServices.map((service) => (
                 <div
                   key={service.id}
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+                  className="bg-white rounded-lg p-5 sm:p-6 shadow-md hover:shadow-lg transition-shadow"
                 >
                   {service.image_url && (
                     <img
                       src={service.image_url}
                       alt={service.name}
-                      className="w-full h-48 object-cover rounded-md mb-4"
+                      className="w-full h-44 sm:h-48 object-cover rounded-md mb-4"
                     />
                   )}
-                  <h4 className="font-serif text-xl text-ink-dark mb-2">{service.name}</h4>
+                  <h4 className="font-serif text-lg sm:text-xl text-ink-dark mb-2">{service.name}</h4>
                   <p className="text-ink-light text-sm mb-4">{service.description}</p>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-gold font-semibold">${service.price}</span>

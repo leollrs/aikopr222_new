@@ -25,9 +25,9 @@ export default function Experience() {
   }, [])
 
   return (
-    <section id="experience" className="py-24 bg-bg-alt">
+    <section id="experience" className="py-16 sm:py-24 bg-bg-alt">
       <div className="container">
-        <div ref={revealRef} className="reveal grid md:grid-cols-2 gap-12 items-center">
+        <div ref={revealRef} className="reveal grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
           <div>
             <img
               src={experienceImage}
@@ -37,13 +37,13 @@ export default function Experience() {
           </div>
           <div>
             <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">La Experiencia</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink-dark mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-5 sm:mb-6">
               Más Que un Tratamiento.<br />Un Ritual.
             </h2>
-            <p className="text-ink-light mb-8 leading-relaxed">
+            <p className="text-ink-light mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
               Desde el momento en que nos contactas, cada detalle está diseñado para brindarte una experiencia premium. Llevamos la clínica a tu hogar con los más altos estándares.
             </p>
-            <ul className="space-y-4 mb-8">
+            <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
               <li className="flex items-start gap-3">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gold mt-1 flex-shrink-0">
                   <polyline points="20 6 9 17 4 12" />

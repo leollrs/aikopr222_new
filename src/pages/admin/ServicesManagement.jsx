@@ -131,22 +131,22 @@ export default function AdminServices() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="container py-12">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container py-8 sm:py-12">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-serif text-ink-dark mb-2">Gestión de Servicios</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Gestión de Servicios</h1>
             <p className="text-ink-light">Administra los servicios de la clínica</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               to="/admin/dashboard"
-              className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
+              className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
             >
               Volver
             </Link>
             <button
               onClick={handleNew}
-              className="btnPrimary px-6 py-2 rounded-full text-sm uppercase tracking-wider font-semibold hover:shadow-lg transition-all"
+              className="btnPrimary px-6 py-2 rounded-full text-sm uppercase tracking-wider font-semibold hover:shadow-lg transition-all justify-center"
             >
               + Nuevo Servicio
             </button>
@@ -154,7 +154,7 @@ export default function AdminServices() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+        <div className="bg-white rounded-lg p-4 sm:p-6 mb-6 shadow-md">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-ink mb-2">Categoría</label>
@@ -199,11 +199,11 @@ export default function AdminServices() {
             {filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+                className="bg-white rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
                       <h3 className="font-serif text-xl text-ink-dark">{service.name}</h3>
                       {service.featured && (
                         <span className="px-2 py-1 luxuryBadge text-xs uppercase rounded">
@@ -217,13 +217,13 @@ export default function AdminServices() {
                       )}
                     </div>
                     <p className="text-ink-light text-sm mb-2">{service.description}</p>
-                    <div className="flex items-center gap-4 text-sm">
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm">
                       <span className="text-gold font-semibold">${service.price}</span>
                       {service.duration && <span className="text-ink-light">{service.duration}</span>}
                       <span className="text-ink-light capitalize">{service.category}</span>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-2 w-full xl:w-auto">
                     <button
                       onClick={() => handleEdit(service)}
                       className="px-4 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
@@ -399,15 +399,15 @@ function ServiceModal({ service, onClose, onSuccess }) {
 
   return (
     <div
-      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-lg max-w-3xl w-full max-h-[94vh] sm:max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-white border-b border-border p-6 flex items-center justify-between">
-          <h2 className="font-serif text-2xl text-ink-dark">
+        <div className="sticky top-0 bg-white border-b border-border px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
+          <h2 className="font-serif text-xl sm:text-2xl text-ink-dark">
             {service ? 'Editar Servicio' : 'Nuevo Servicio'}
           </h2>
           <button
@@ -418,7 +418,7 @@ function ServiceModal({ service, onClose, onSuccess }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-ink mb-2">
@@ -530,7 +530,7 @@ function ServiceModal({ service, onClose, onSuccess }) {
             />
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
@@ -551,7 +551,7 @@ function ServiceModal({ service, onClose, onSuccess }) {
             </label>
           </div>
 
-          <div className="flex gap-4 pt-4 border-t border-border">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 border-t border-border">
             <button
               type="button"
               onClick={onClose}

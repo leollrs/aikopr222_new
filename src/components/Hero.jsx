@@ -146,12 +146,14 @@ export default function Hero({ onOpenModal }) {
             <img
               src={image}
               alt={promotion.title}
-              className="w-full h-52 object-cover rounded-md mb-4 border border-border"
+              className="w-full h-44 sm:h-52 object-cover rounded-md mb-4 border border-border"
             />
           )}
           <div className="flex-1">
             <p className="heroCardEyebrow text-[11px] uppercase tracking-wider mb-1">Promocion Activa</p>
-            <h3 className="heroCardTitle font-serif text-3xl leading-tight mb-2">{promotion.title}</h3>
+            <h3 className="heroCardTitle font-serif text-2xl sm:text-3xl leading-tight mb-2">
+              {promotion.title}
+            </h3>
             <div className="luxuryBadge px-2.5 py-1 mb-3">
               {badgeText}
             </div>
@@ -174,12 +176,14 @@ export default function Hero({ onOpenModal }) {
           <img
             src={service.image_url}
             alt={service.name}
-            className="w-full h-52 object-cover rounded-md mb-4 border border-border"
+            className="w-full h-44 sm:h-52 object-cover rounded-md mb-4 border border-border"
           />
         )}
         <div className="flex-1">
           <p className="heroCardEyebrow text-[11px] uppercase tracking-wider mb-1">Servicio Destacado</p>
-          <h3 className="heroCardTitle font-serif text-3xl leading-tight mb-2">{service.name}</h3>
+          <h3 className="heroCardTitle font-serif text-2xl sm:text-3xl leading-tight mb-2">
+            {service.name}
+          </h3>
           <div className="luxuryBadge px-2.5 py-1 mb-3">
             {formatUsd(service.price)}
           </div>
@@ -201,8 +205,8 @@ export default function Hero({ onOpenModal }) {
         <div className="absolute inset-0 heroOverlay"></div>
       </div>
 
-      <div className="container relative z-10 py-32">
-        <div className="grid lg:grid-cols-[minmax(0,1.7fr)_minmax(360px,1fr)] gap-10 items-start">
+      <div className="container relative z-10 py-24 md:py-32">
+        <div className="grid lg:grid-cols-[minmax(0,1.7fr)_minmax(360px,1fr)] gap-8 lg:gap-10 items-start">
           <div className="max-w-2xl">
             <p
               ref={(el) => (revealRefs.current[0] = el)}
@@ -212,13 +216,13 @@ export default function Hero({ onOpenModal }) {
             </p>
             <h1
               ref={(el) => (revealRefs.current[1] = el)}
-              className="reveal font-serif text-5xl md:text-6xl text-white mb-4 leading-tight"
+              className="reveal font-serif text-4xl sm:text-5xl md:text-6xl text-white mb-4 leading-tight"
             >
               Experiencia Clínica de Lujo,<br />Resultados Visibles
             </h1>
             <p
               ref={(el) => (revealRefs.current[2] = el)}
-              className="reveal text-xl text-white/90 mb-6"
+              className="reveal text-lg sm:text-xl text-white/90 mb-6"
             >
               Tratamientos Estéticos Avanzados a Domicilio
             </p>
@@ -231,8 +235,8 @@ export default function Hero({ onOpenModal }) {
             </p>
 
             <div ref={(el) => (revealRefs.current[4] = el)} className="reveal">
-              <div className="flex flex-wrap gap-4 mb-8">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mb-8">
+                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm text-white border border-white/20">
                   <svg
                     width="18"
                     height="18"
@@ -245,7 +249,7 @@ export default function Hero({ onOpenModal }) {
                   </svg>
                   Tratamientos Certificados
                 </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm text-white border border-white/20">
                   <svg
                     width="18"
                     height="18"
@@ -259,7 +263,7 @@ export default function Hero({ onOpenModal }) {
                   </svg>
                   Atención 1:1
                 </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm text-white border border-white/20">
                   <svg
                     width="18"
                     height="18"
@@ -278,7 +282,7 @@ export default function Hero({ onOpenModal }) {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={onOpenModal}
-                  className="btnPrimary px-9 py-4 text-sm"
+                  className="btnPrimary w-full sm:w-auto px-6 sm:px-9 py-3.5 sm:py-4 text-sm"
                 >
                   Agendar Cita
                   <svg
@@ -294,7 +298,7 @@ export default function Hero({ onOpenModal }) {
                 </button>
                 <a
                   href="#services"
-                  className="btnSecondary px-9 py-4 text-sm bg-[var(--surface)] backdrop-blur-sm"
+                  className="btnSecondary w-full sm:w-auto px-6 sm:px-9 py-3.5 sm:py-4 text-sm bg-[var(--surface)] backdrop-blur-sm"
                 >
                   Ver Servicios
                   <svg
@@ -310,7 +314,7 @@ export default function Hero({ onOpenModal }) {
                 </a>
                 <a
                   href="tel:+17866729528"
-                  className="btnSecondary px-9 py-4 text-sm bg-[var(--surface)] backdrop-blur-sm"
+                  className="btnSecondary w-full sm:w-auto px-6 sm:px-9 py-3.5 sm:py-4 text-sm bg-[var(--surface)] backdrop-blur-sm"
                 >
                   <svg
                     width="18"

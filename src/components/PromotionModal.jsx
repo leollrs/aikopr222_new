@@ -56,11 +56,11 @@ export default function PromotionModal({ highlights, initialIndex = 0, isOpen, o
 
   return (
     <div
-      className="fixed inset-0 z-[1100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-[1100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-lg w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-xl shadow-lg w-full max-w-2xl max-h-[88vh] sm:max-h-[80vh] overflow-hidden flex flex-col"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="p-4 border-b border-border flex items-center justify-between">
@@ -68,7 +68,7 @@ export default function PromotionModal({ highlights, initialIndex = 0, isOpen, o
             <p className="text-xs uppercase tracking-wider text-ink-light">
               {isPromotion ? 'Promocion Activa' : 'Servicio Destacado'}
             </p>
-            <h3 className="font-serif text-2xl text-ink-dark">{title}</h3>
+            <h3 className="font-serif text-xl sm:text-2xl text-ink-dark">{title}</h3>
           </div>
           <button
             onClick={onClose}
@@ -88,7 +88,7 @@ export default function PromotionModal({ highlights, initialIndex = 0, isOpen, o
         )}
 
         <div className="p-5 flex-1 overflow-y-auto">
-          <div className="flex items-center justify-between gap-3 mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <span className="inline-flex items-center px-3 py-1 rounded-full luxuryBadge text-xs uppercase tracking-wider font-semibold">
               {badge}
             </span>
@@ -114,13 +114,13 @@ export default function PromotionModal({ highlights, initialIndex = 0, isOpen, o
 
           <p className="text-ink-light leading-relaxed mb-6">{description}</p>
 
-          <div className="flex flex-wrap gap-3 items-center justify-between">
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
             <button
               onClick={() => {
                 onClose()
                 onBook(activeItem)
               }}
-              className="btnPrimary px-6 py-3 rounded-full text-sm uppercase tracking-wider font-semibold hover:shadow-lg transition-all"
+              className="btnPrimary w-full sm:w-auto px-6 py-3 rounded-full text-sm uppercase tracking-wider font-semibold hover:shadow-lg transition-all"
             >
               {isPromotion ? 'Agendar con esta promo' : 'Agendar este servicio'}
             </button>

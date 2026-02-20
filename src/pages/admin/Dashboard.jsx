@@ -52,15 +52,15 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="container py-12">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container py-8 sm:py-12">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-serif text-ink-dark mb-2">Panel de Administración</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Panel de Administración</h1>
             <p className="text-ink-light">Bienvenido al panel de control</p>
           </div>
           <Link
             to="/"
-            className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
+            className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center w-full sm:w-auto"
           >
             Inicio
           </Link>
@@ -149,7 +149,7 @@ export default function AdminDashboard() {
                   {featuredServiceQuery.data.name}
                 </h3>
                 <p className="text-ink-light text-sm mb-4">{featuredServiceQuery.data.description}</p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <span className="text-gold font-semibold">${featuredServiceQuery.data.price}</span>
                   <Link
                     to="/admin/services"
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
               {stats.upcomingAppointments.map((appointment) => (
                 <div
                   key={appointment.id}
-                  className="flex items-center justify-between p-4 border border-border rounded-md"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 border border-border rounded-md"
                 >
                   <div>
                     <p className="font-semibold text-ink-dark">

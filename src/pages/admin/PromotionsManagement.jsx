@@ -104,22 +104,22 @@ export default function AdminPromotions() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="container py-12">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container py-8 sm:py-12">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-serif text-ink-dark mb-2">Gestión de Promociones</h1>
+            <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Gestión de Promociones</h1>
             <p className="text-ink-light">Administra las promociones y ofertas especiales</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               to="/admin/dashboard"
-              className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
+              className="px-6 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
             >
               Volver
             </Link>
             <button
               onClick={handleNew}
-              className="btnPrimary px-6 py-2 rounded-full text-sm uppercase tracking-wider font-semibold hover:shadow-lg transition-all"
+              className="btnPrimary px-6 py-2 rounded-full text-sm uppercase tracking-wider font-semibold hover:shadow-lg transition-all justify-center"
             >
               + Nueva Promoción
             </button>
@@ -134,7 +134,7 @@ export default function AdminPromotions() {
           <>
             {/* Active Promotions */}
             <div className="mb-12">
-              <h2 className="font-serif text-2xl text-ink-dark mb-6">Promociones Activas</h2>
+              <h2 className="font-serif text-xl sm:text-2xl text-ink-dark mb-6">Promociones Activas</h2>
               {activePromotions.length === 0 ? (
                 <div className="text-center py-12 bg-white rounded-lg shadow-md">
                   <p className="text-ink-light">No hay promociones activas.</p>
@@ -158,7 +158,7 @@ export default function AdminPromotions() {
             {/* Past Promotions */}
             {pastPromotions.length > 0 && (
               <div>
-                <h2 className="font-serif text-2xl text-ink-dark mb-6">Promociones Pasadas</h2>
+                <h2 className="font-serif text-xl sm:text-2xl text-ink-dark mb-6">Promociones Pasadas</h2>
                 <div className="grid gap-4">
                   {pastPromotions.map((promotion) => (
                     <PromotionCard
@@ -211,10 +211,10 @@ function PromotionCard({ promotion, service, onEdit, onDelete, onToggleActive })
     basePrice !== null && discountedPrice !== null && discountedPrice < basePrice
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-      <div className="flex items-start justify-between gap-4">
+    <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
+      <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-4">
         <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
             <h3 className="font-serif text-xl text-ink-dark">{promotion.title}</h3>
             {isActive && (
               <span className="px-2 py-1 bg-success text-white text-xs uppercase rounded">
@@ -226,7 +226,7 @@ function PromotionCard({ promotion, service, onEdit, onDelete, onToggleActive })
             </span>
           </div>
           <p className="text-ink-light text-sm mb-4">{promotion.description}</p>
-          <div className="flex items-center gap-4 text-sm text-ink-light">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-ink-light">
             <span>Servicio: {service?.name || 'No asignado'}</span>
             {hasDiscountedPrice && (
               <span className="flex items-center gap-2">
@@ -244,10 +244,10 @@ function PromotionCard({ promotion, service, onEdit, onDelete, onToggleActive })
           <img
             src={promotion.banner_image_url}
             alt={promotion.title}
-            className="w-32 h-32 object-cover rounded-md"
+            className="w-full xl:w-32 h-40 xl:h-32 object-cover rounded-md"
           />
         )}
-        <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-2 w-full xl:w-auto">
           <button
             onClick={() => onEdit(promotion)}
             className="px-4 py-2 border border-border-md rounded-md text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors"
@@ -405,15 +405,15 @@ function PromotionModal({ promotion, services, onClose, onSuccess }) {
 
   return (
     <div
-      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-lg max-w-2xl w-full max-h-[94vh] sm:max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-white border-b border-border p-6 flex items-center justify-between">
-          <h2 className="font-serif text-2xl text-ink-dark">
+        <div className="sticky top-0 bg-white border-b border-border px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
+          <h2 className="font-serif text-xl sm:text-2xl text-ink-dark">
             {promotion ? 'Editar Promoción' : 'Nueva Promoción'}
           </h2>
           <button
@@ -424,7 +424,7 @@ function PromotionModal({ promotion, services, onClose, onSuccess }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-6">
           <div>
             <label className="block text-sm font-medium text-ink mb-2">Servicio *</label>
             <select
@@ -560,7 +560,7 @@ function PromotionModal({ promotion, services, onClose, onSuccess }) {
             </label>
           </div>
 
-          <div className="flex gap-4 pt-4 border-t border-border">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 border-t border-border">
             <button
               type="button"
               onClick={onClose}
