@@ -239,6 +239,13 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
     }))
   }
 
+  const handleSelectTime = (time) => {
+    setFormData((prev) => ({
+      ...prev,
+      time,
+    }))
+  }
+
   const goToPreviousMonth = () => {
     setCalendarViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
   }
@@ -898,25 +905,43 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="time" className="block text-sm font-medium text-ink mb-2">
+                      <label className="block text-sm font-medium text-ink mb-2">
                         Hora Preferida
                       </label>
-                      <select
-                        id="time"
-                        name="time"
-                        value={formData.time}
-                        onChange={handleChange}
-                        required
-                        disabled={!formData.date || isLoadingAvailability || availableTimes.length === 0}
-                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
-                      >
-                        <option value="">Selecciona una hora</option>
-                        {availableTimes.map((time) => (
-                          <option key={time} value={time}>
-                            {formatAestheticTime(time)}
-                          </option>
-                        ))}
-                      </select>
+                      {!formData.date ? (
+                        <div className="rounded-xl border border-border bg-white/80 px-4 py-3 text-sm text-ink-light">
+                          Selecciona una fecha para ver los horarios disponibles.
+                        </div>
+                      ) : (
+                        <div className="rounded-2xl border border-border bg-linen/40 p-3 sm:p-4">
+                          {availableTimes.length > 0 ? (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                              {availableTimes.map((time) => {
+                                const isSelected = formData.time === time
+                                return (
+                                  <button
+                                    key={time}
+                                    type="button"
+                                    onClick={() => handleSelectTime(time)}
+                                    disabled={isLoadingAvailability}
+                                    className={`rounded-xl border px-3 py-2 text-sm font-medium transition-colors ${
+                                      isSelected
+                                        ? 'bg-gold text-white border-gold shadow-[0_10px_24px_rgba(201,174,126,0.35)]'
+                                        : 'bg-white/85 text-ink border-border hover:border-gold/60'
+                                    } ${isLoadingAvailability ? 'opacity-55 cursor-not-allowed' : ''}`}
+                                  >
+                                    {formatAestheticTime(time)}
+                                  </button>
+                                )
+                              })}
+                            </div>
+                          ) : (
+                            <div className="rounded-xl border border-border bg-white/80 px-4 py-3 text-sm text-ink-light">
+                              No hay horarios disponibles para esta fecha.
+                            </div>
+                          )}
+                        </div>
+                      )}
                       {isLoadingAvailability && (
                         <p className="text-xs text-ink-light mt-2">Validando disponibilidad con Google Calendar...</p>
                       )}
