@@ -38,7 +38,6 @@ export default function Experience() {
             />
           </div>
           <div>
-            <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">La Experiencia</span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-5 sm:mb-6">
               Más Que un Servicio.<br />Una Experiencia Personalizada.
             </h2>

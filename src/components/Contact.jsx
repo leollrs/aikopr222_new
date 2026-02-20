@@ -29,7 +29,6 @@ export default function Contact() {
       <div className="container">
         <div ref={revealRef} className="reveal grid md:grid-cols-2 gap-8 sm:gap-12">
           <div>
-            <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Contáctanos</span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-5 sm:mb-6">
               Agenda Tu Cita
             </h2>

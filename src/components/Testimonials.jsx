@@ -32,7 +32,6 @@ export default function Testimonials() {
     <section id="testimonials" className="py-16 sm:py-24 bg-bg">
       <div className="container">
         <header className="text-center mb-10 sm:mb-12">
-          <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Reseñas</span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark">
             Lo Que Dicen Nuestros Clientes
           </h2>

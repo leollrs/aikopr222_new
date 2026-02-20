@@ -73,7 +73,6 @@ export default function Services({ onOpenModal }) {
     <section id="services" className="py-16 sm:py-24 bg-bg">
       <div className="container">
         <header className="text-center mb-12 sm:mb-16">
-          <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Nuestros Servicios</span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-4">
             Nuestros Servicios
           </h2>
