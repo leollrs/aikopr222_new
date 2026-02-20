@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../lib/supabase'
 import PromotionModal from './PromotionModal'
 import { formatUsd, getDiscountedPrice, toNumber } from '../lib/pricing'
-import heroImage from '../assets/hero-image.png'
+import heroImage from '../assets/hero-image.webp'
 
 export default function Hero({ onOpenModal }) {
   const revealRefs = useRef([])
@@ -146,7 +146,7 @@ export default function Hero({ onOpenModal }) {
             <img
               src={image}
               alt={promotion.title}
-              className="w-full h-44 sm:h-52 object-cover rounded-md mb-4 border border-border"
+              className="w-full h-40 sm:h-52 object-cover rounded-md mb-4 border border-border"
             />
           )}
           <div className="flex-1">
@@ -176,7 +176,7 @@ export default function Hero({ onOpenModal }) {
           <img
             src={service.image_url}
             alt={service.name}
-            className="w-full h-44 sm:h-52 object-cover rounded-md mb-4 border border-border"
+            className="w-full h-40 sm:h-52 object-cover rounded-md mb-4 border border-border"
           />
         )}
         <div className="flex-1">
@@ -194,7 +194,7 @@ export default function Hero({ onOpenModal }) {
   }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center">
+    <section id="home" className="relative min-h-[100svh] flex items-center pt-16 sm:pt-0">
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
@@ -205,8 +205,8 @@ export default function Hero({ onOpenModal }) {
         <div className="absolute inset-0 heroOverlay"></div>
       </div>
 
-      <div className="container relative z-10 py-24 md:py-32">
-        <div className="grid lg:grid-cols-[minmax(0,1.7fr)_minmax(360px,1fr)] gap-8 lg:gap-10 items-start">
+      <div className="container relative z-10 py-14 sm:py-20 md:py-32">
+        <div className="grid lg:grid-cols-[minmax(0,1.7fr)_minmax(360px,1fr)] gap-6 sm:gap-8 lg:gap-10 items-start">
           <div className="max-w-2xl">
             <p
               ref={(el) => (revealRefs.current[0] = el)}
@@ -333,8 +333,8 @@ export default function Hero({ onOpenModal }) {
           </div>
 
           {activeHighlight && (
-            <aside className="w-full lg:max-w-[460px] lg:justify-self-end lg:mt-4 lg:min-h-[50vh]">
-              <div className="heroCard w-full h-full bg-[rgba(246,241,234,0.9)] transition-all flex flex-col">
+          <aside className="w-full lg:max-w-[460px] lg:justify-self-end lg:mt-4 lg:min-h-[50vh]">
+              <div className="heroCard w-full h-full bg-[rgba(246,241,234,0.9)] transition-all flex flex-col p-4 sm:p-7">
                 <button onClick={openHighlightModal} className="text-left flex-1">
                   {renderHighlightCard()}
                   <span className="inline-flex items-center gap-2 text-xs uppercase tracking-wider heroCardTitle font-semibold mt-3">

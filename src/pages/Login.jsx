@@ -31,6 +31,10 @@ export default function Login() {
   const getAuthErrorMessage = (error) => {
     const raw = (error?.message || '').toLowerCase()
 
+    if (raw.includes('timed out')) {
+      return 'La autenticación tardó demasiado. Intenta otra vez en unos segundos.'
+    }
+
     if (raw.includes('email rate limit exceeded') || raw.includes('over_email_send_rate_limit')) {
       return 'Límite de correos alcanzado. Espera unos minutos o crea el usuario desde Supabase (Auth > Users).'
     }

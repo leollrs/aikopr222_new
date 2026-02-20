@@ -14,6 +14,7 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [userRole, setUserRole] = useState(null)
+  const [roleLoading, setRoleLoading] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -58,51 +59,63 @@ export function AuthProvider({ children }) {
   const fetchUserRole = async (authUser) => {
     if (!authUser?.id) {
       setUserRole(null)
+      setRoleLoading(false)
       return null
     }
 
+    setRoleLoading(true)
     try {
-      const rpcRole = await readRoleViaRpc()
-      if (rpcRole) {
-        setUserRole(rpcRole)
-        return rpcRole
-      }
-    } catch (rpcError) {
-      // If RPC does not exist in DB yet, fallback to direct table query.
-      const code = rpcError?.code || rpcError?.status || 'unknown'
-      if (!['42883', 'PGRST202'].includes(code)) {
-        console.warn('get_my_role RPC failed, falling back to users table:', rpcError)
-      }
-    }
-
-    for (let attempt = 0; attempt < 2; attempt += 1) {
       try {
-        const tableRole = await readRoleViaUsersTable(authUser)
-        if (tableRole) {
-          setUserRole(tableRole)
-          return tableRole
+        const rpcRole = await readRoleViaRpc()
+        if (rpcRole) {
+          setUserRole(rpcRole)
+          return rpcRole
         }
-      } catch (tableError) {
-        if (attempt === 1) {
-          console.error('Error fetching role from users table:', tableError)
+      } catch (rpcError) {
+        // If RPC does not exist in DB yet, fallback to direct table query.
+        const code = rpcError?.code || rpcError?.status || 'unknown'
+        if (!['42883', 'PGRST202'].includes(code)) {
+          console.warn('get_my_role RPC failed, falling back to users table:', rpcError)
         }
       }
 
-      await wait(200 * (attempt + 1))
-    }
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        try {
+          const tableRole = await readRoleViaUsersTable(authUser)
+          if (tableRole) {
+            setUserRole(tableRole)
+            return tableRole
+          }
+        } catch (tableError) {
+          if (attempt === 1) {
+            console.error('Error fetching role from users table:', tableError)
+          }
+        }
 
-    const fallbackRole = normalizeRole(resolveFallbackRole(authUser))
-    if (!fallbackRole) {
-      console.warn(
-        `No role found for authenticated user id=${authUser.id} email=${authUser.email || 'unknown'}.`
-      )
+        await wait(200 * (attempt + 1))
+      }
+
+      const fallbackRole = normalizeRole(resolveFallbackRole(authUser))
+      if (!fallbackRole) {
+        console.warn(
+          `No role found for authenticated user id=${authUser.id} email=${authUser.email || 'unknown'}.`
+        )
+      }
+      setUserRole(fallbackRole)
+      return fallbackRole
+    } finally {
+      setRoleLoading(false)
     }
-    setUserRole(fallbackRole)
-    return fallbackRole
   }
 
   useEffect(() => {
     let mounted = true
+    const authBootWatchdog = setTimeout(() => {
+      if (mounted) {
+        // Safety valve: never keep protected routes in endless "Cargando..."
+        setLoading(false)
+      }
+    }, 10000)
 
     const initializeAuth = async () => {
       try {
@@ -115,6 +128,7 @@ export function AuthProvider({ children }) {
         if (!session?.user) {
           setUser(null)
           setUserRole(null)
+          setRoleLoading(false)
           setLoading(false)
           return
         }
@@ -134,6 +148,7 @@ export function AuthProvider({ children }) {
           await supabase.auth.signOut({ scope: 'local' })
           setUser(null)
           setUserRole(null)
+          setRoleLoading(false)
           setLoading(false)
           return
         }
@@ -162,6 +177,7 @@ export function AuthProvider({ children }) {
       if (!session?.user) {
         setUser(null)
         setUserRole(null)
+        setRoleLoading(false)
         setLoading(false)
         return
       }
@@ -174,29 +190,45 @@ export function AuthProvider({ children }) {
 
     return () => {
       mounted = false
+      clearTimeout(authBootWatchdog)
       subscription.unsubscribe()
     }
   }, [])
 
   const signIn = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    const { data, error } = await withTimeout(
+      supabase.auth.signInWithPassword({
+        email,
+        password,
+      }),
+      10000,
+      'signInWithPassword'
+    )
     if (error) throw error
 
     if (data?.session?.access_token && data?.session?.refresh_token) {
-      await supabase.auth.setSession({
-        access_token: data.session.access_token,
-        refresh_token: data.session.refresh_token,
-      })
+      await withTimeout(
+        supabase.auth.setSession({
+          access_token: data.session.access_token,
+          refresh_token: data.session.refresh_token,
+        }),
+        8000,
+        'setSession'
+      )
     }
 
-    const { data: userResult } = await withTimeout(supabase.auth.getUser(), 5000, 'getUser')
+    const { data: userResult } = await withTimeout(supabase.auth.getUser(), 6000, 'getUser')
     const authenticatedUser = userResult?.user || data?.user
     setUser(authenticatedUser ?? null)
     setLoading(false)
-    const resolvedRole = await fetchUserRole(authenticatedUser)
+    let resolvedRole = null
+    try {
+      resolvedRole = await withTimeout(fetchUserRole(authenticatedUser), 9000, 'fetchUserRole')
+    } catch (roleError) {
+      console.warn('Role resolution timed out, using fallback role:', roleError)
+      resolvedRole = normalizeRole(resolveFallbackRole(authenticatedUser))
+      setUserRole(resolvedRole)
+    }
     return { ...data, userRole: resolvedRole, userId: authenticatedUser?.id || null }
   }
 
@@ -217,6 +249,7 @@ export function AuthProvider({ children }) {
     // Clear local state first so UI always logs out immediately.
     setUser(null)
     setUserRole(null)
+    setRoleLoading(false)
     setLoading(false)
 
     const { error } = await supabase.auth.signOut({ scope: 'local' })
@@ -228,6 +261,7 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     userRole,
+    roleLoading,
     loading,
     signIn,
     signUp,

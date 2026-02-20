@@ -1,7 +1,7 @@
 .chatWidgetRoot {
   position: fixed;
   right: 20px;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   z-index: 950;
   display: flex;
   flex-direction: column;
@@ -229,7 +229,7 @@
   .chatWidgetRoot {
     right: 12px;
     left: 12px;
-    bottom: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     align-items: stretch;
   }
 

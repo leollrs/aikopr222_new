@@ -25,6 +25,16 @@ export default function ClientAppointments() {
     enabled: !!user?.id,
   })
 
+  const extractCalendarMetadata = (notes = '') => {
+    const raw = String(notes || '')
+    const eventMatch = raw.match(/calendar event id:\s*([^|]+?)(?: \| |$)/i)
+    const sourceMatch = raw.match(/calendar source:\s*([^|]+?)(?: \| |$)/i)
+    return {
+      eventId: eventMatch?.[1]?.trim() || '',
+      source: sourceMatch?.[1]?.trim() || '',
+    }
+  }
+
   const cancelMutation = useMutation({
     mutationFn: async (id) => {
       const { error } = await supabase
@@ -51,9 +61,34 @@ export default function ClientAppointments() {
   })
 
   const handleCancel = (id) => {
-    if (confirm('¿Estás seguro de cancelar esta cita?')) {
+    const run = async () => {
+      if (!confirm('¿Estás seguro de cancelar esta cita?')) return
+
+      const appointment = appointments.find((item) => item.id === id)
+      try {
+        const metadata = extractCalendarMetadata(appointment?.notes)
+        const response = await fetch('/api/google-calendar/events/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            eventId: metadata.eventId,
+            appointmentId: id,
+            source: metadata.source,
+          }),
+        })
+        if (!response.ok) {
+          const payload = await response.json().catch(() => ({}))
+          throw new Error(payload?.error || 'No se pudo eliminar la cita del calendario.')
+        }
+      } catch (error) {
+        toast.error(error.message || 'No se pudo cancelar la cita en calendario')
+        return
+      }
+
       cancelMutation.mutate(id)
     }
+
+    run()
   }
 
   const statusLabels = {

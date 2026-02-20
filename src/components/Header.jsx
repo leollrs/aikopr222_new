@@ -67,7 +67,7 @@ export default function Header({ onOpenModal }) {
         <nav
           className={`${
             mobileMenuOpen ? 'block' : 'hidden'
-          } md:block fixed md:absolute top-[76px] md:top-auto left-0 md:left-1/2 md:-translate-x-1/2 right-0 md:right-auto bg-[rgba(20,20,20,0.92)] md:bg-transparent backdrop-blur-xl md:backdrop-blur-0 border-b border-white/10 md:border-0 px-6 py-4 md:p-0 z-[910]`}
+          } md:block fixed md:absolute top-[76px] md:top-auto left-0 md:left-1/2 md:-translate-x-1/2 right-0 md:right-auto max-h-[calc(100svh-76px)] overflow-y-auto bg-[rgba(20,20,20,0.92)] md:bg-transparent backdrop-blur-xl md:backdrop-blur-0 border-b border-white/10 md:border-0 px-6 py-4 md:p-0 z-[910]`}
         >
           <ul className="flex flex-col md:flex-row gap-4 md:gap-8">
             <li>

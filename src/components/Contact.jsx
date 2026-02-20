@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import contactCtaImage from '../assets/contact-cta-image.png'
+import contactCtaImage from '../assets/contact-cta-image.webp'
 
 export default function Contact() {
   const revealRef = useRef(null)
@@ -60,7 +60,9 @@ export default function Contact() {
             <img
               src={contactCtaImage}
               alt="Espacio de consulta estética con acabados en mármol e iluminación cálida"
-              className="w-full rounded-lg shadow-lg"
+              className="w-full rounded-lg shadow-lg aspect-[4/3] sm:aspect-auto object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

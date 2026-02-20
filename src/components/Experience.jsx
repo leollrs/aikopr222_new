@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import experienceImage from '../assets/experience-image.png'
+import experienceImage from '../assets/experience-image.webp'
 
 export default function Experience() {
   const revealRef = useRef(null)
@@ -32,7 +32,9 @@ export default function Experience() {
             <img
               src={experienceImage}
               alt="Kit de tratamiento móvil profesional en ambiente residencial premium"
-              className="w-full rounded-lg shadow-lg"
+              className="w-full rounded-lg shadow-lg aspect-[4/3] sm:aspect-auto object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div>
