@@ -67,14 +67,6 @@ export default function AdminServices() {
 
   const toggleFeaturedMutation = useMutation({
     mutationFn: async ({ id, featured }) => {
-      // If setting to featured, unfeature all others first
-      if (featured) {
-        await supabase
-          .from('services')
-          .update({ featured: false })
-          .neq('id', id)
-      }
-
       const { error } = await supabase
         .from('services')
         .update({ featured })
@@ -84,6 +76,9 @@ export default function AdminServices() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['admin-services'])
+      queryClient.invalidateQueries(['featured-service'])
+      queryClient.invalidateQueries(['hero-featured-services'])
+      queryClient.invalidateQueries(['hero-promotions'])
       toast.success('Servicio destacado actualizado')
     },
     onError: (error) => {
@@ -306,13 +301,6 @@ function ServiceModal({ service, onClose, onSuccess }) {
           .eq('id', service.id)
         if (error) throw error
       } else {
-        // If setting as featured, unfeature all others first
-        if (data.featured) {
-          await supabase
-            .from('services')
-            .update({ featured: false })
-        }
-
         const { error } = await supabase
           .from('services')
           .insert([data])
@@ -323,6 +311,9 @@ function ServiceModal({ service, onClose, onSuccess }) {
       toast.success(service ? 'Servicio actualizado' : 'Servicio creado')
       queryClient.invalidateQueries(['admin-services'])
       queryClient.invalidateQueries(['services'])
+      queryClient.invalidateQueries(['featured-service'])
+      queryClient.invalidateQueries(['hero-featured-services'])
+      queryClient.invalidateQueries(['hero-promotions'])
       onSuccess()
     },
     onError: (error) => {

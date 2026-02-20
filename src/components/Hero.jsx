@@ -36,8 +36,8 @@ export default function Hero({ onOpenModal }) {
     },
   })
 
-  const { data: featuredService = null } = useQuery({
-    queryKey: ['hero-featured-service'],
+  const { data: featuredServices = [] } = useQuery({
+    queryKey: ['hero-featured-services'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('services')
@@ -45,23 +45,21 @@ export default function Hero({ onOpenModal }) {
         .eq('active', true)
         .eq('featured', true)
         .order('updated_at', { ascending: false })
-        .limit(1)
-        .maybeSingle()
 
       if (error) throw error
-      return data || null
+      return data || []
     },
   })
 
   const highlightItems = useMemo(() => {
     const items = []
-    if (featuredService) {
+    featuredServices.forEach((featuredService) => {
       items.push({
         id: `service-${featuredService.id}`,
         type: 'service',
         service: featuredService,
       })
-    }
+    })
 
     promotions.forEach((promotion) => {
       items.push({
@@ -72,7 +70,7 @@ export default function Hero({ onOpenModal }) {
     })
 
     return items
-  }, [featuredService, promotions])
+  }, [featuredServices, promotions])
 
   const activeHighlight = highlightItems[activeHighlightIndex] || null
 
