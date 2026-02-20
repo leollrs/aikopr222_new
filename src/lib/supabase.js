@@ -18,11 +18,13 @@ const clientOptions = {
 function getSupabase() {
   if (!_supabase) {
     if (!supabaseUrl || !supabaseAnonKey) {
+      // Do not hard-crash the app in production if env is missing.
+      // Use a placeholder client so UI still renders and surfaces errors gracefully.
       if (typeof window !== 'undefined') {
-        console.error('Missing Supabase environment variables. Please check your .env.local file.')
-        throw new Error('Missing Supabase environment variables')
+        console.error(
+          'Missing Supabase environment variables (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY).'
+        )
       }
-      // During build, return a mock client to prevent errors
       _supabase = createClient('https://placeholder.supabase.co', 'placeholder-key', clientOptions)
     } else {
       _supabase = createClient(supabaseUrl, supabaseAnonKey, clientOptions)
