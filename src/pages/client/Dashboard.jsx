@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
+import { formatAestheticDateTime } from '../../lib/utils'
 
 export default function ClientDashboard() {
   const { user } = useAuth()
@@ -123,14 +124,7 @@ export default function ClientDashboard() {
                           {appointment.services?.name || 'Servicio'}
                         </h3>
                         <p className="text-sm text-ink-light">
-                          {new Date(appointment.appointment_date).toLocaleDateString('es-ES', {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
+                          {formatAestheticDateTime(appointment.appointment_date)}
                         </p>
                         <p className="text-xs text-ink-light mt-1 capitalize">
                           {appointment.location === 'domicilio' ? 'A domicilio' : 'En local'}

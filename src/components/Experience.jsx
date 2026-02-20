@@ -40,29 +40,31 @@ export default function Experience() {
           <div>
             <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">La Experiencia</span>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-5 sm:mb-6">
-              Más Que un Tratamiento.<br />Un Ritual.
+              Más Que un Servicio.<br />Una Experiencia Personalizada.
             </h2>
             <p className="text-ink-light mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
-              Desde el momento en que nos contactas, cada detalle está diseñado para brindarte una experiencia premium. Llevamos la clínica a tu hogar con los más altos estándares.
+              Desde el primer contacto, cada detalle está diseñado para brindarte comodidad,
+              confianza y resultados visibles. Llevamos la tecnología estética directamente a tu
+              hogar con un enfoque profesional y personalizado.
             </p>
             <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
               <li className="flex items-start gap-3">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gold mt-1 flex-shrink-0">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span className="text-ink">Consulta personalizada antes de cada sesión</span>
+                <span className="text-ink">Evaluación estética antes de cada sesión</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gold mt-1 flex-shrink-0">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span className="text-ink">Equipo clínico profesional y certificado</span>
+                <span className="text-ink">Equipos profesionales certificados</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gold mt-1 flex-shrink-0">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span className="text-ink">Tecnología láser de grado médico</span>
+                <span className="text-ink">Atención privada y personalizada</span>
               </li>
             </ul>
           </div>

@@ -36,6 +36,9 @@ export default function Testimonials() {
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark">
             Lo Que Dicen Nuestros Clientes
           </h2>
+          <p className="text-ink-light mt-3 text-sm sm:text-base">
+            Experiencias reales. Resultados visibles.
+          </p>
         </header>
 
         <div ref={revealRef} className="reveal relative max-w-4xl mx-auto">

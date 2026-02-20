@@ -135,7 +135,7 @@ export default function AdminServices() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 sm:mb-8">
           <div>
             <h1 className="text-3xl sm:text-4xl font-serif text-ink-dark mb-2">Gestión de Servicios</h1>
-            <p className="text-ink-light">Administra los servicios de la clínica</p>
+            <p className="text-ink-light">Administra los servicios del negocio</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link

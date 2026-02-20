@@ -150,7 +150,7 @@ export default function Hero({ onOpenModal }) {
             />
           )}
           <div className="flex-1">
-            <p className="heroCardEyebrow text-[11px] uppercase tracking-wider mb-1">Promocion Activa</p>
+            <p className="heroCardEyebrow text-[11px] uppercase tracking-wider mb-1">Promoción Activa</p>
             <h3 className="heroCardTitle font-serif text-2xl sm:text-3xl leading-tight mb-2">
               {promotion.title}
             </h3>
@@ -212,26 +212,20 @@ export default function Hero({ onOpenModal }) {
               ref={(el) => (revealRefs.current[0] = el)}
               className="reveal text-sm uppercase tracking-wider text-white/70 mb-4"
             >
-              Puerto Rico
+              PUERTO RICO
             </p>
             <h1
               ref={(el) => (revealRefs.current[1] = el)}
               className="reveal font-serif text-4xl sm:text-5xl md:text-6xl text-white mb-4 leading-tight"
             >
-              Experiencia Clínica de Lujo,<br />Resultados Visibles
+              Belleza Avanzada,<br />Resultados Visibles en la Comodidad de Tu Hogar
             </h1>
             <p
               ref={(el) => (revealRefs.current[2] = el)}
               className="reveal text-lg sm:text-xl text-white/90 mb-6"
             >
-              Tratamientos Estéticos Avanzados a Domicilio
-            </p>
-            <p
-              ref={(el) => (revealRefs.current[3] = el)}
-              className="reveal text-white/80 mb-8 leading-relaxed"
-            >
-              Protocolos profesionales y tecnología láser para realzar tu belleza natural — desde
-              la comodidad de tu hogar.
+              Servicios estéticos profesionales diseñados para mejorar la apariencia de tu piel y
+              realzar tu confianza — sin salir de casa.
             </p>
 
             <div ref={(el) => (revealRefs.current[4] = el)} className="reveal">
@@ -247,7 +241,7 @@ export default function Hero({ onOpenModal }) {
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
-                  Tratamientos Certificados
+                  Protocolos personalizados
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm text-white border border-white/20">
                   <svg
@@ -275,7 +269,7 @@ export default function Hero({ onOpenModal }) {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  Equipo Profesional
+                  Tecnología estética avanzada
                 </span>
               </div>
 
@@ -338,7 +332,7 @@ export default function Hero({ onOpenModal }) {
                 <button onClick={openHighlightModal} className="text-left flex-1">
                   {renderHighlightCard()}
                   <span className="inline-flex items-center gap-2 text-xs uppercase tracking-wider heroCardTitle font-semibold mt-3">
-                    {highlightItems.length > 1 ? 'Ver Destacados' : 'Ver Detalles'}
+                    Ver Destacados
                     <svg
                       width="14"
                       height="14"

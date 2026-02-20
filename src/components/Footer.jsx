@@ -3,8 +3,16 @@ export default function Footer() {
     <footer className="bg-ink-dark text-white py-10 sm:py-12">
       <div className="container">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-center md:text-left">
-          <p className="font-serif text-xl">AIKOPR222</p>
-          <p className="text-white/60 text-sm">&copy; 2026 AIKOPR222. Todos los derechos reservados.</p>
+          <p className="font-serif text-xl">
+            AIKOPR222
+            <br />
+            <span className="font-sans text-sm text-white/70">Estética avanzada a domicilio</span>
+          </p>
+          <p className="text-white/60 text-sm">
+            &copy; 2026 AIKOPR222. Todos los derechos reservados.
+            <br />
+            Servicios estéticos no médicos. Resultados pueden variar según la persona.
+          </p>
           <div className="flex gap-4">
             <a
               href="https://www.instagram.com/aikopr222/"

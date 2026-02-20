@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { toast } from 'sonner'
 import { formatUsd, getDiscountedPrice, toNumber } from '../lib/pricing'
+import { formatAestheticTime } from '../lib/utils'
 
 const BUSINESS_HOURS = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
 const WEEK_DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
@@ -912,7 +913,7 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
                         <option value="">Selecciona una hora</option>
                         {availableTimes.map((time) => (
                           <option key={time} value={time}>
-                            {time === '12:00' ? '12:00 PM' : parseInt(time) < 12 ? `${time} AM` : `${parseInt(time) - 12}:00 PM`}
+                            {formatAestheticTime(time)}
                           </option>
                         ))}
                       </select>

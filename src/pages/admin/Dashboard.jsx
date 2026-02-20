@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { toast } from 'sonner'
+import { formatAestheticDateTime } from '../../lib/utils'
 
 const statusLabels = {
   pending: 'Pendiente',
@@ -603,14 +604,7 @@ export default function AdminDashboard() {
                 >
                   <div>
                     <p className="font-semibold text-ink-dark">
-                      {new Date(appointment.appointment_date).toLocaleDateString('es-ES', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
+                      {formatAestheticDateTime(appointment.appointment_date)}
                     </p>
                     <p className="text-sm text-ink-light capitalize">{statusLabels[appointment.status] || appointment.status}</p>
                     {appointment.services?.name && (
@@ -719,14 +713,7 @@ export default function AdminDashboard() {
                           </div>
                         ) : (
                           <p className="text-ink-dark font-semibold">
-                            {new Date(selectedAppointment.appointment_date).toLocaleString('es-ES', {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            })}
+                            {formatAestheticDateTime(selectedAppointment.appointment_date)}
                           </p>
                         )}
                       </div>

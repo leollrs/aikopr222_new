@@ -66,7 +66,7 @@ export default function PromotionModal({ highlights, initialIndex = 0, isOpen, o
         <div className="p-4 border-b border-border flex items-center justify-between">
           <div>
             <p className="text-xs uppercase tracking-wider text-ink-light">
-              {isPromotion ? 'Promocion Activa' : 'Servicio Destacado'}
+              {isPromotion ? 'Promoción Activa' : 'Servicio Destacado'}
             </p>
             <h3 className="font-serif text-xl sm:text-2xl text-ink-dark">{title}</h3>
           </div>

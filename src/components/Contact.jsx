@@ -34,7 +34,7 @@ export default function Contact() {
               Agenda Tu Cita
             </h2>
             <address className="text-ink-light mb-6 not-italic">
-              <p>Servicio a domicilio<br />Puerto Rico</p>
+              <p>Servicio estético a domicilio en Puerto Rico</p>
             </address>
             <div className="mb-6">
               <p className="text-ink">
@@ -46,13 +46,13 @@ export default function Contact() {
                 href="tel:+17866729528"
                 className="px-4 sm:px-6 py-3 border border-border-md rounded-md text-xs sm:text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
               >
-                Llamar +1 (786) 672-9528
+                LLAMAR +1 (786) 672-9528
               </a>
               <a
                 href="mailto:Aikopr222@gmail.com"
                 className="px-4 sm:px-6 py-3 border border-border-md rounded-md text-xs sm:text-sm font-semibold uppercase tracking-wider hover:border-gold hover:text-gold transition-colors text-center"
               >
-                Enviar Email
+                ENVIAR EMAIL
               </a>
             </div>
           </div>

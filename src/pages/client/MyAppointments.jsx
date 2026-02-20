@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import { toast } from 'sonner'
 import { Link } from 'react-router-dom'
+import { formatAestheticDateTime } from '../../lib/utils'
 
 export default function ClientAppointments() {
   const { user } = useAuth()
@@ -195,14 +196,7 @@ export default function ClientAppointments() {
                             <polyline points="12 6 12 12 16 14" />
                           </svg>
                           <span className="text-ink">
-                            {new Date(appointment.appointment_date).toLocaleDateString('es-ES', {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            })}
+                            {formatAestheticDateTime(appointment.appointment_date)}
                           </span>
                         </div>
                         <div className="flex items-center gap-2">

@@ -75,10 +75,11 @@ export default function Services({ onOpenModal }) {
         <header className="text-center mb-12 sm:mb-16">
           <span className="text-xs uppercase tracking-wider text-ink-light mb-2 block">Nuestros Servicios</span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-ink-dark mb-4">
-            Catálogo de Tratamientos
+            Nuestros Servicios
           </h2>
           <p className="text-ink-light max-w-2xl mx-auto text-sm sm:text-base">
-            Protocolos avanzados con tecnología de vanguardia para resultados visibles.
+            Tecnología estética avanzada para mejorar textura, firmeza y luminosidad de la piel
+            con protocolos personalizados.
           </p>
         </header>
 
