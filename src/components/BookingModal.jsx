@@ -613,11 +613,11 @@ export default function BookingModal({ onClose, serviceId, promotion }) {
 
   return (
     <div
-      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
+      className="fixed inset-0 z-[1000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-2xl w-full max-h-[94vh] sm:max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-lg w-[min(100%,34rem)] max-h-[88svh] sm:max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 bg-white border-b border-border px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
